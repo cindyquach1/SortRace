@@ -1,6 +1,5 @@
 var userArray = [];
 var unsortedArray = ['4', '5', 'A', '6', '2', '7', 'B', '2', 'B', '6', '1', '4']
-// var unsortedArray = [ '4', '5', 'A', '1', '7', 'B', '2', '1' ];
 var sortedArr = [];
 var result1 = [];
 var left;
@@ -13,24 +12,19 @@ var counter;
 
 function mergeSort (unsortedArray) {
     if (unsortedArray.length <= 1) {
-        // console.log("x", unsortedArray);
         return unsortedArray;
     }
     // Get the middle
     const middle = Math.floor(unsortedArray.length / 2);
     mid1.push(middle);
-    // console.log("mid", middle);
 
     // Dividing the array into left and right
     
     const left = unsortedArray.slice(0, middle);
     left1.push(left);
-    // console.log("left", left);
-    // console.log("left1", left1);
 
     const right = unsortedArray.slice(middle);
     right1.push(right);
-    // console.log("right1", right1);
 
     // Using recursion to combine the left and right
     return merge(
@@ -47,29 +41,21 @@ function merge(leftArr,rightArr)
 
     while (i < leftArr.length || j < rightArr.length) {
         if (i === leftArr.length) {
-            // j is the only index leftArr
-            // console.log("x", rightArr[j]);
             result.push(rightArr[j]);
-            result1.push(rightArr[j]);
             j++;
             counter++;
         } 
       else if (j === rightArr.length || leftArr[i] <= rightArr[j]) {
-            // console.log("y", leftArr[i]);
             result.push(leftArr[i]);
-            result1.push(leftArr[i]);
             i++;
             counter++;
         } else {
-            // console.log("z", rightArr[j]);
             result.push(rightArr[j]);
-            result1.push(rightArr[j]);
             j++;
             counter++;
         }
     }
 
-    // console.log("result", result);
     result1.push(result);
     return result
         .concat(leftArr.slice(i))
@@ -84,7 +70,7 @@ $( document ).ready(function() {
 
         for (var i = 0; i < unsortedArray.length; i++)
         {
-            var parseArray = unsortedArray[i] + " | ";
+            var parseArray = unsortedArray[i] + "  ";
             $("#showUnsortedArray").append(parseArray);
         }
 
@@ -94,26 +80,33 @@ $( document ).ready(function() {
         console.log('result1',result1);
         while (flag) {
             var i = 0;
+
             for(i; i < counter-1; i++) 
             {
-                // console.log("hi");
-                // console.log("result["+ i +"]", result1[i]);
-                // console.log(left1[i]);
-                // console.log('mid',mid1[i]);
-                // console.log(right1[i]);
-    
-                $("#" + i).append(left1[i] + ',' + right1[i]);
+                $('#mergesort1 tr').each(function(i) {
+                    $(this).find('td').html(left1[i].join(' ') + " | " + right1[i].join(' '));
+                });
+                
+                // $("#" + i).append(left1[i].join('  ') + " | " +  right1[i].join('  '));
             }
-            for(i; i < result1.length; i++)
+            
+            for(var j = 0; j < result1.length; j++)
             {
-                $("#" + i).append(result1[i]);
+                // $("#" + i).append(result1[j]);
+                // i++;
+
+                $('#mergesort2 tr').each(function(i) {
+                    $(this).find('td').html(result1[i].join(' '));
+                });
             }
             flag = 0;
         }
-        // console.log('result1',result1);
 
-        $("#showSortedArray").append(sortedArr);
+        for (var i = 0; i < sortedArr.length; i++)
+        {
+            var parseArray = sortedArr[i] + "  ";
+            $("#showSortedArray").append(parseArray);
+        }
     })
-
 });
 
